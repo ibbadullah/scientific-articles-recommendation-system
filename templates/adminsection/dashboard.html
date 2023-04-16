@@ -1,0 +1,131 @@
+{% extends 'adminsection/admin_base.html' %}
+{% block title %}Administration Dashboard{% endblock %}
+{% block content %}
+          <div
+            class="flex flex-col items-start justify-between pb-6 space-y-4 border-b lg:items-center lg:space-y-0 lg:flex-row"
+          >
+            <h1 class="text-2xl font-semibold whitespace-nowrap">Dashboard</h1>
+
+          </div>
+
+
+          <!-- Start Content for dashboard-->
+          <div class="grid grid-cols-1 gap-5 mt-6 sm:grid-cols-2 lg:grid-cols-4">
+
+              <!--Total users-->
+              <div class="p-4 transition-shadow border rounded-lg shadow-sm hover:shadow-lg">
+                <div class="flex items-start justify-between">
+                  <div class="flex flex-col space-y-2">
+                    <span class="text-gray-400">Total Users</span>
+                    <span class="text-lg font-semibold">{{ TotalUsers }}</span>
+                  </div>
+                  <div class="p-10 rounded-md"><i style="font-size: 27px;color: gainsboro" class="fa fa-users"></i></div>
+                </div>
+              </div>
+
+
+          <!--Total Unverified Users-->
+              <div class="p-4 transition-shadow border rounded-lg shadow-sm hover:shadow-lg">
+                <div class="flex items-start justify-between">
+                  <div class="flex flex-col space-y-2">
+                    <span class="text-gray-400">Total Unverified Users</span>
+                    <span class="text-lg font-semibold">{{ TotalUnVerifiedUsers }}</span>
+                  </div>
+                  <div class="p-9 rounded-md"><i style="font-size: 27px;color: gainsboro;" class="fa fa-user-times"></i></div>
+                </div>
+              </div>
+
+
+          <!--Total articles-->
+              <div class="p-4 transition-shadow border rounded-lg shadow-sm hover:shadow-lg">
+                <div class="flex items-start justify-between">
+                  <div class="flex flex-col space-y-2">
+                    <span class="text-gray-400">Total Articles</span>
+                    <span class="text-lg font-semibold">{{ TotalArticles }}</span>
+                  </div>
+                  <div class="p-10 rounded-md"><i style="font-size: 27px;color: gainsboro" class="fa fa-book"></i></div>
+                </div>
+              </div>
+
+
+          <!--Total views-->
+              <div class="p-4 transition-shadow border rounded-lg shadow-sm hover:shadow-lg">
+                <div class="flex items-start justify-between">
+                  <div class="flex flex-col space-y-2">
+                    <span class="text-gray-400">Total Views</span>
+                    <span class="text-lg font-semibold">{{ TotalViews }}</span>
+                  </div>
+                  <div class="p-10 rounded-md"><i style="font-size: 27px;color: gainsboro" class="fa fa-eye"></i></div>
+                </div>
+              </div>
+
+
+          </div>
+
+
+
+          <!-- Table for user-->
+          <h3 class="mt-6 text-xl">Users</h3>
+          <div class="flex flex-col mt-6">
+            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+              <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                <div class="overflow-hidden border-b border-gray-200 rounded-md shadow-md">
+                  <table class="min-w-full overflow-x-scroll divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                      <tr>
+                        <th
+                          scope="col"
+                          class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+                        >
+                          Name
+                        </th>
+                        <th
+                          scope="col"
+                          class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+                        >
+                          Details
+                        </th>
+
+                        <th
+                          scope="col"
+                          class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+                        >
+                          Role
+                        </th>
+                        <th scope="col" class="relative px-6 py-3">
+                          <span class="sr-only">View</span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+
+                    <!--Getting the latest 10 users from the db-->
+                    {% for u in Users|slice:10 %}
+                        <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
+                          <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                              <div class="ml-4">
+                                <div class="text-sm font-medium text-gray-900">{{ u.first_name }} {{ u.last_name }}</div>
+                              </div>
+                            </div>
+                          </td>
+                          <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">{{ u.username }}</div>
+                            <div class="text-sm text-gray-500">{{ u.email }}</div>
+                          </td>
+
+                          <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">{% if u.is_admin == True %}Admin{% else %}User{% endif %}</td>
+                          <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                            <a href="{% url 'UserProfileUpdateViewAdmin' u.id %}" class="text-indigo-600 hover:text-indigo-900">View</a>
+                          </td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+{% endblock %}

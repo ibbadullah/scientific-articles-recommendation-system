@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Administration Login - Doc2Vec</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            background-color: #1f1a2b;
+        }
+        .jumbotron{
+            width: 40%;
+        }
+        p{
+            position: absolute;
+            bottom: 10px;
+            color: white;
+            text-align: center;
+        }
+        p a{
+            color: white;
+        }
+    </style>
+  </head>
+<body>
+
+    <div class="jumbotron">
+
+        {% for message in messages %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+         {% endfor %}
+
+        <h4>Administration Login</h4>
+        <form action="{% url 'AdminLoginView' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input name="email" type="email" placeholder="Email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <input name="password" type="password" placeholder="Password" class="form-control" required>
+            </div>
+            <button class="btn btn-success form-control">Login</button>
+        </form>
+        <a href="{% url 'reset_password' %}">Forgot Password</a>
+    </div>
+
+    <p>Powered by <a href="{% url 'Home' %}">Doc2Vec team group ID 	F2002B3EBD</a></p>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

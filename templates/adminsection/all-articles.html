@@ -1,0 +1,168 @@
+{% extends 'adminsection/admin_base.html' %}
+{% block title %}All Articles{% endblock %}
+{% block content %}
+
+
+<main class="flex-1 max-h-full p-5 overflow-hidden overflow-y-scroll">
+  <h3 class="mt-6 text-xl">All Articles
+
+   <a href="{% url 'AddArticle' %}" style="float: right;font-size: 15px!important;">
+       <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded">
+           Add Article
+        </button>
+    </a>
+  </h3><br>
+
+
+  <!--Displaying messages-->
+    {% for message in messages %}
+        <br>
+        <div style="background-color: rgba(255, 104, 3,0.2)" class="px-4 py-3 rounded relative lg:w-1/2 md:w-2/3 mx-auto" role="alert">
+          <span class="block sm:inline">{{ message }}</span>
+        </div><br>
+    {% endfor %}
+
+
+
+<!--Displaying message for no record and hiding the table through css-->
+   {% if TotalArticles == 0 %}
+       <style>
+          table{display: none}
+       </style>
+
+        <p style="color: orangered">Sorry, no articles record found.</p>
+   {% endif %}
+
+
+  <div class="flex flex-col mt-6">
+
+    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+        <div class="overflow-hidden border-b border-gray-200 rounded-md shadow-md">
+          <table class="min-w-full overflow-x-scroll divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                  Title
+                </th>
+                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                  Details
+                </th>
+
+                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                  Image
+                </th>
+
+                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                  Delete
+                </th>
+                <th scope="col" class="relative px-6 py-3">
+                  <span class="sr-only">Edit</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+
+              {% for article in Data %}
+                <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">{{ article.article_title|truncatechars:"40" }}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-500">{{ article.article_content|truncatechars:"50" }}</div>
+                    <div class="text-sm text-gray-500">{{ article.Category.category_name }}</div>
+                  </td>
+
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-500"><img height="40" width="60" src="{{ article.article_image.url }}" alt="Article Thumbnail"></div>
+                  </td>
+
+                  <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                      <a title="delete" style="font-weight: bold;color: darkred" href="{% url 'DeleteArticle' article.id %}" class="text-indigo-600 hover:text-indigo-900">Delete</a>
+                  </td>
+                  <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                    <a style="font-weight: bold;" title="edit" href="{% url 'UpdateArticle' article.id %}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                  </td>
+                </tr>
+             {% endfor %}
+
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+    <!-- Pagination -->
+    <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+      <div class="flex-1 flex justify-between sm:hidden">
+       {% if Data.has_previous %}
+        <a href="?page={{ Data.previous_page_number }}" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500">
+          Previous
+        </a>
+      {% endif %}
+
+      {% if Data.has_next %}
+        <a href="?page={{ Data.next_page_number }}" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500">
+          Next
+        </a>
+      {% endif %}
+      </div>
+      <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+
+        <div>
+          <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+
+           {% if Data.has_previous %}
+                <a href="?page={{ Data.previous_page_number }}" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                  <span class="sr-only">Previous</span>
+                  <!-- Heroicon name: solid/chevron-left -->
+                  <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                </a>
+           {% endif %}
+
+
+          {% for num in Data.paginator.page_range %}
+            {% if Data.number == num %}
+                <span style="color: blue;font-weight: bold" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                  {{ num }}
+                </span>
+            {% elif num > Data.number|add:"-3" and num < Data.number|add:"3" %}
+                <a href="?page={{ num }}" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                  {{ num }}
+                </a>
+            {% endif %}
+          {% endfor %}
+
+
+          {% if Data.has_next %}
+                <a href="?page={{ Data.next_page_number }}" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                  <span class="sr-only">Next</span>
+                  <!-- Heroicon name: solid/chevron-right -->
+                  <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                  </svg>
+                </a>
+          {% endif %}
+
+          </nav>
+        </div>
+      </div>
+    </div>
+
+
+
+</main>
+
+
+
+{% endblock %}

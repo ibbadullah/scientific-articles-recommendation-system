@@ -1,0 +1,14 @@
+{% extends 'publicsection/base.html' %}
+{% block title %}Verification link sent{% endblock %}
+
+{% block content %}
+    <!-- intro section -->
+    <section class="text-gray-600 body-font">
+      <div class="container px-5 py-24 mx-auto flex flex-wrap items-center">
+        <div class="w-full md:pr-16 lg:pr-0 pr-0" style="margin-bottom: 170px">
+          <p class="mt-4" style="color:green;font-size: 24px">We sent a verification link to your email account. Please visit the link & verify you email account.</p><br>
+            <a href="{% url 'SignUpStep1' %}" style="color:blue;font-size: 24px">Resend</a>
+        </div>
+      </div>
+    </section>
+{% endblock %}

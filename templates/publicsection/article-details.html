@@ -1,0 +1,29 @@
+{% extends 'publicsection/base.html' %}
+{% block title %}{{ Article.article_title }}{% endblock %}
+{% block extraTags %}
+    <meta name="keywords" content="{{ Article.article_keywords }}">
+    <meta name="description" content="{{ Article.article_content|truncatechars:160 }}">
+    <meta name="author" content="{{ Article.article_author }}">
+{% endblock %}
+
+{% block content %}
+    <!-- Sign up form -->
+    <section class="text-gray-600 body-font relative" style="margin-bottom: 100px">
+      <div class="container px-5 py-24 mx-auto">
+        <div class="flex flex-col w-full mb-12">
+          <h1 style="font-family: 'Open Sans',Helvetica,Arial,sans-serif;" class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">{{ Article.article_title }}</h1>
+            <p style="font-size: 15px;color: gray">Published on {{ Article.published_date }}&nbsp;&nbsp;|&nbsp;&nbsp;Author: {{ Article.article_author }}</p>
+        </div>
+        <div class="w-full p-2">
+          <div class="flex flex-wrap -m-2">
+             <p style="font-family: 'Open Sans',Helvetica,Arial,sans-serif;font-size: 18px">
+                 {{ Article.article_content }}
+             </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+{% endblock %}

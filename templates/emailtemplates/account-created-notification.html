@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ Title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+body{
+    background-color:white;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.backgroundDiv{
+    height: auto;
+    width: 80%;
+    margin-left: 10%;
+    overflow: hidden;
+
+}
+.bodyContent{
+    border: 1px solid gainsboro;
+    margin: 0px !important;
+    padding: 0px !important;
+}
+.container{
+     width: 100%;
+}
+
+.logoDiv{
+    text-align: center;
+}
+.logo{
+    width: 120px;
+    height: 120px;
+    margin-bottom: 15px;
+    position: center;
+
+}
+.titleDiv{
+    width: 100%;
+    text-align: center;
+    background-color: darkblue;
+}
+.titleDiv h1{
+    color: white;
+    font-family: 'Open Sans',Helvetica,Arial,sans-serif;
+    font-size: 28px;
+    line-height: 100px;
+    font-weight: 500;
+    margin-top: 0px;
+}
+.container p{
+    font-family: 'Open Sans',Helvetica,Arial,sans-serif;
+    font-size: 18px;
+    color: darkslategrey;
+    line-height: 25px;
+    font-weight: 400;
+    margin:25px 15px 25px 15px ;
+}
+
+.container .link{
+    color: darkorange;
+    font-weight: bold;
+    text-decoration: none;
+}
+.container .link:hover{
+    color: darkorange;
+    opacity: 0.9;
+    text-decoration: none;
+}
+
+.code{
+    color: indigo;
+    font-weight: 600;
+    font-size: 25px;
+    font-family: Arial;
+    letter-spacing: 4px;
+    text-align: center;
+
+}
+.hr{
+    width: 90%;
+    margin-left: 5%;
+    background-color: gainsboro !important;
+    height: 1px;
+    border-style: none;
+}
+.btn{
+    background-color: darkblue;
+    color: white;
+    width: 60%;
+    margin-left: 20%;
+    height: 45px;
+    font-weight: 400;
+    font-family: Calibri;
+    font-size: 22px;
+    text-decoration: none;
+    border-style: none;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+
+.btn:hover{
+    color: white;
+    opacity: 0.8;
+}
+.bottomDiv{
+    text-align: center;
+}
+.bottomDiv h5{
+    font-family: Calibri;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 16px;
+    color: dimgrey;
+}
+.bottomDiv a{
+    margin: 3px;
+    text-decoration: none;
+}
+.bottomDiv a img{
+    padding: 3px;
+    width: 35px;
+    height: 35px;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+}
+.bottomDiv a img:hover{
+    opacity: 0.8;
+}
+.copyrightText{
+    text-align: center;
+    font-family: Calibri !important;
+    font-size: 15px !important;
+    color: grey !important;
+    margin-bottom: 10px !important;
+}
+
+/* Designing for mobile screens*/
+ @media only screen and (max-width: 480px) {
+     .logo{
+        width: 80px;
+        height: 80px;
+        position: center;
+        margin-bottom: 5px;
+    }
+
+    .titleDiv h1{
+        color: white;
+        font-family: 'Open Sans',Helvetica,Arial,sans-serif;
+        font-size: 20px;
+        line-height: 60px;
+    }
+
+    .container{
+        width: 100%;
+    }
+
+    .container p{
+
+        font-family: 'Open Sans',Helvetica,Arial,sans-serif;
+        font-size: 18px;
+        color: darkslategrey;
+        line-height: 21px;
+        font-weight: 400;
+        margin:20px 6px 6px 15px;
+
+
+    }
+    .btn{
+        font-weight: 400;
+        width: 80%;
+        margin-left: 10%;
+        height: 35px !important;
+        font-size: 18px !important;
+    }
+ }
+
+  </style>
+</head>
+<body>
+
+<br>
+<br>
+
+<div class="backgroundDiv">
+<div class="logoDiv">
+        <img class="logo" src="https://cdn.pixabay.com/photo/2017/12/06/04/56/facebook-3000954_1280.png" alt="Doc2Vec"/>
+</div>
+
+<div class="bodyContent">
+<div class="titleDiv">
+    <h1>{{ Title }}</h1>
+</div>
+
+<div class="container">
+     <p>
+         {{ Message }} <br><a href="{{ Link }}">{{ Link }}</a>
+     </p>
+  <br>
+  <a href="{{ Link }}" ><button class="btn">Login</button></a>
+
+    <br>
+    <hr class="hr">
+    <div class="bottomDiv">
+        <h5>Follow us</h5>
+        <div class="bottomDiv">
+            <h5>Follow us</h5>
+            <a href="https://www.facebook.com/engineer.ibbad"><img src="https://cdn.pixabay.com/photo/2017/12/06/04/56/facebook-3000954_1280.png" alt="Facebook" class="socailIcons"></a>
+            <a href="https://twitter.com/IukOfficial"><img src="https://cdn.pixabay.com/photo/2017/12/06/04/57/twitter-3000965_1280.png" alt="Twitter" class="socailIcons"></a>
+            </div>
+        <br>
+        <p class="copyrightText">&copy;&nbsp;2022 <a href="#" class="link">SARS</a> All rights reserved</p>
+</div>
+</div>
+</div>
+<br>
+
+
+
+</body>
+</html>

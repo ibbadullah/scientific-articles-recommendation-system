@@ -1,0 +1,112 @@
+{% extends 'publicsection/base.html' %}
+{% load filters %}
+{% block title %}All Articles{% endblock %}
+
+{% block content %}
+    <!-- Latest articles section -->
+    <section class="text-gray-600 body-font">
+      <div class="container px-5 py-24 mx-auto">
+        <h1 class="sm:text-3xl text-2xl text-center font-medium title-font mb-4 text-gray-700">All Articles</h1><br>
+        <div class="flex flex-wrap -m-4">
+            <!--Getting fresh article-->
+            {% for a in ArticlesQuery %}
+              <div class="p-4 md:w-1/3">
+                <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+                  <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="{{ a.article_image.url }}" alt="Article Thumbnail">
+                  <div class="p-6">
+                    <h2 class="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">CATEGORY</h2>
+                    <h1 class="title-font text-lg font-medium text-gray-900 mb-3">{{ a.Category.category_name }}</h1>
+                    <p class="leading-relaxed mb-3">{{ a.article_title }}</p>
+                    <div class="flex items-center flex-wrap ">
+                      <a href="{% url 'ShowSingleArticle' a.id %}" class="text-indigo-500 inline-flex items-center md:mb-2 lg:mb-0">Learn More
+                        <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M5 12h14"></path>
+                          <path d="M12 5l7 7-7 7"></path>
+                        </svg>
+                      </a>
+                      <span title="Views" class="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1">
+                        <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                          <circle cx="12" cy="12" r="3"></circle>
+                        </svg>{{ request|ArticleViews:a.id }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+
+
+
+            <!--Pagination-->
+       <div class="bg-white px-4 py-3 flex items-center justify-between sm:px-6">
+
+           <div class="flex-1 flex justify-between sm:hidden">
+               {% if ArticlesQuery.has_previous %}
+                    <a href="?page={{ ArticlesQuery.previous_page_number }}" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500">
+                      Previous
+                    </a>
+               {% endif %}
+
+                {% if ArticlesQuery.has_next %}
+                    <a href="?page={{ ArticlesQuery.next_page_number }}" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:text-gray-500">
+                      Next
+                    </a>
+                {% endif %}
+          </div>
+
+
+
+          <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+            <div>
+              <nav class="relative z-0 inline-flex shadow-sm -space-x-px" aria-label="Pagination">
+
+                {% if ArticlesQuery.has_previous %}
+                    <a href="?page={{ ArticlesQuery.previous_page_number }}" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                      <span class="sr-only">Previous</span>
+                      <!-- Heroicon name: chevron-left -->
+                      <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                    </a>
+                  {% endif %}
+
+
+                  {% for num in ArticlesQuery.paginator.page_range %}
+                    {% if ArticlesQuery.number == num %}
+                        <span style="color: blue;font-weight: bold" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                          {{ num }}
+                        </span>
+                    {% elif num > ArticlesQuery.number|add:"-3" and num < ArticlesQuery.number|add:"3" %}
+                        <a href="?page={{ num }}" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                          {{ num }}
+                        </a>
+                    {% endif %}
+                 {% endfor %}
+
+
+              {% if ArticlesQuery.has_next %}
+                <a href="?page={{ ArticlesQuery.next_page_number }}" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                  <span class="sr-only">Next</span>
+                  <!-- Heroicon name: chevron-right -->
+                  <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                  </svg>
+                </a>
+              {% endif %}
+
+
+              </nav>
+            </div>
+          </div>
+        </div>
+
+
+        </div>
+      </div>
+    </section>
+
+
+
+
+{% endblock %}

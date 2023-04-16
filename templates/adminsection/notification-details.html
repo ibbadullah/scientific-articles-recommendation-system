@@ -1,0 +1,18 @@
+{% extends 'adminsection/admin_base.html' %}
+{% block title %}Notification Details{% endblock %}
+{% block content %}
+
+    <main class="flex-1 max-h-full p-5 overflow-hidden overflow-y-scroll">
+      <h3 class="mt-6 text-xl">Notification Details</h3>
+
+      <div class="flex flex-col mt-6">
+
+        <h4 class="mt-6 text-x2" style="font-weight: 500">{{ Notification.title }}</h4>
+        <div class="text-sm text-gray-500">{{ Notification.generated_date }}</div><br>
+        <div class="text-sm font-medium text-gray-500">{{ Notification.message }}</div>
+
+      </div>
+    </main>
+
+
+{% endblock %}

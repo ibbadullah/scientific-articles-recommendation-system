@@ -1,0 +1,91 @@
+{% extends 'adminsection/admin_base.html' %}
+{% block title %}All Categories{% endblock %}
+{% block content %}
+
+<!-- User Link part in Dash Board Components -->
+<main class="flex-1 max-h-full p-5 overflow-hidden overflow-y-scroll">
+  <h3 class="mt-6 text-xl">All Categories
+
+      <a href="{% url 'AddCategory' %}" style="float: right;font-size: 15px!important;">
+       <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded">
+           Add Category
+        </button>
+    </a>
+  </h3><br>
+  <!--Displaying messages-->
+    {% for message in messages %}
+        <br>
+        <div style="background-color: rgba(255, 104, 3,0.2)" class="px-4 py-3 rounded relative lg:w-1/2 md:w-2/3 mx-auto" role="alert">
+          <span class="block sm:inline">{{ message }}</span>
+        </div><br>
+    {% endfor %}
+
+   <!--Displaying message for no record and hiding the table through css-->
+   {% if TotalCategories == 0 %}
+       <style>
+          table{display: none}
+       </style>
+
+        <p style="color: orangered">Sorry, no categories found.</p>
+   {% endif %}
+
+  <div class="flex flex-col mt-6">
+
+
+    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+        <div class="overflow-hidden border-b border-gray-200 rounded-md shadow-md">
+          <table class="min-w-full overflow-x-scroll divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                  Name
+                </th>
+                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                  Description
+                </th>
+
+                <th scope="col" class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                  Delete
+                </th>
+                <th scope="col" class="relative px-6 py-3">
+                  <span class="sr-only">Edit</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+
+              {% for category in Categories %}
+                <tr class="transition-all hover:bg-gray-100 hover:shadow-lg">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="ml-4">
+                        <div class="text-sm font-medium text-gray-900">{{ category.category_name }}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-500">{{ category.category_description }}</div>
+                  </td>
+
+                  <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                      <a title="Delete" style="color: darkred;font-weight: bold" href="{% url 'DeleteCategory' category.id %}" class="text-indigo-600 hover:text-indigo-900">Delete</a>
+                  </td>
+                  <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                    <a title="Edit" style="font-weight: bold" href="{% url 'UpdateCategory' category.id %}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                  </td>
+                </tr>
+             {% endfor %}
+
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+
+{% endblock %}

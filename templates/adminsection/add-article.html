@@ -1,0 +1,80 @@
+{% extends 'adminsection/admin_base.html' %}
+{% block title %}Add Article{% endblock %}
+{% block content %}
+
+    <main class="flex-1 max-h-full p-5 overflow-hidden overflow-y-scroll">
+      <h3 class="mt-6 text-xl">Add Article</h3>
+      <div class="lg:w-1/2 md:w-2/3 mx-auto">
+        <div class="flex flex-wrap -m-2">
+            <form enctype="multipart/form-data" action="{% url 'AddArticle' %}" class="w-full" method="post">
+                  {% csrf_token %}
+                  <div class="p-2 w-full">
+                    <div class="relative">
+                      <label for="category" class="leading-7 text-sm text-gray-600">Article Domain</label>
+                        <select required name="category_id"
+                                id="category"
+                                class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                        >
+                            <option value="" disabled selected>Select Domain</option>
+
+                            {% for category in Categories %}
+                                <option value="{{ category.id }}">{{ category.category_name }}</option>
+                            {% endfor %}
+                        </select>
+
+                    </div>
+                  </div>
+
+                 <div class="p-2 w-full">
+                      <div class="relative">
+                          <label for="a_title" class="leading-7 text-sm text-gray-600">Article Title</label>
+                          <input required type="text" id="a_title" name="article_title"
+                            class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                      </div>
+                 </div>
+
+               <div class="p-2 w-full">
+                      <div class="relative">
+                          <label for="a_k" class="leading-7 text-sm text-gray-600">Article Keywords</label>
+                          <input required type="text" id="a_title" name="article_keywords"
+                            class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                      </div>
+                 </div>
+
+
+                <div class="p-2 w-full">
+                      <div class="relative">
+                          <label for="a_author" class="leading-7 text-sm text-gray-600">Article Author</label>
+                          <input required type="text" id="a_author" name="article_author"
+                            class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                      </div>
+                 </div>
+
+
+                  <div class="p-2 w-full">
+                    <div class="relative">
+                      <label for="message" class="leading-7 text-sm text-gray-600">Article Content</label>
+                      <textarea required id="message" name="article_content"
+                        class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+                    </div>
+                  </div>
+
+                <div class="p-2 w-full">
+                      <div class="relative">
+                          <label for="a_img" class="leading-7 text-sm text-gray-600">Article Image</label>
+                          <input required type="file" id="a_img" name="article_image"
+                            class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                      </div>
+                 </div>
+
+
+                  <div class="p-2 w-full">
+                    <button class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg" type="submit">Add Article</button>
+                  </div>
+            </form>
+        </div>
+
+      </div>
+    </main>
+
+{% endblock %}
